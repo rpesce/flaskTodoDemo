@@ -12,31 +12,31 @@
 
 <body>
     <div style="margin-top: 50px;" class="ui container">
-        <h1 class="ui center aligned header">To Do App</h1>
+        <h1 class="ui center aligned header">Demo To Do List</h1>
 
         <form class="ui form" action="/add" method="post">
             <div class="field">
-                <label>Todo Title</label>
-                <input type="text" name="title" placeholder="Enter Todo..."><br>
+                <label>What are you doing today?</label>
+                <input type="text" name="title" placeholder="Enter your next task here..."><br>
             </div>
-            <button class="ui blue button" type="submit">Add</button>
+            <button class="ui blue button" type="submit">Add to my list</button>
         </form>
 
         <hr>
 
-        {% for todo in todo_list %}
+        {% for todo in todo_list|sort(attribute='id', reverse = True) %}
         <div class="ui segment">
-            <p class="ui big header">{{ todo.id }} | {{ todo.title }}</p>
+            <p class="ui">{{ todo.id }} | <span class="ui big header">{{ todo.title }}</span> </p>
 
             {% if todo.complete == False %}
                 <span class="ui gray label">Not Complete</span>
-                <a class="ui blue button" href="/update/{{ todo.id }}">Complete</a>
+                <a class="ui blue button" href="/update/{{ todo.id }}">Done</a>
             {% else %}
                 <span class="ui green label">Completed</span>
                 <a class="ui blue button" href="/update/{{ todo.id }}">Restore</a>
             {% endif %}
 
-            <a class="ui red button" href="/delete/{{ todo.id }}">Delete</a>
+            <a class="ui red button" href="/delete/{{ todo.id }}">Delete item</a>
         </div>
         {% endfor %}
     </div>

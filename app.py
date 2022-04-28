@@ -16,12 +16,18 @@ class Todo(db.Model):
 
 @app.route('/')
 def home():
+    """
+        Lists all todo items
+    """
     todo_list = Todo.query.all()
     return render_template("index.html", todo_list=todo_list)
 
 
 @app.route("/add", methods=["POST"])
 def add():
+    """
+        Creates new todo items
+    """
     title = request.form.get("title")
     new_todo = Todo(title=title, complete=False)
     db.session.add(new_todo)
@@ -31,6 +37,9 @@ def add():
 
 @app.route("/update/<int:todo_id>")
 def update(todo_id):
+    """
+        Updates todo items
+    """
     todo = Todo.query.filter_by(id=todo_id).first()
     todo.complete = not todo.complete
     db.session.commit()
@@ -39,6 +48,9 @@ def update(todo_id):
 
 @app.route("/delete/<int:todo_id>")
 def delete(todo_id):
+    """
+        Deletes todo items
+    """
     todo = Todo.query.filter_by(id=todo_id).first()
     db.session.delete(todo)
     db.session.commit()

@@ -1,0 +1,14 @@
+### Get all todos
+GET http://127.0.0.1:5000
+
+
+### Post a new todo
+// @no-redirect
+POST http://127.0.0.1:5000/add
+Content-Type: application/x-www-form-urlencoded
+
+title=New todo {{$randomInt}}
+
+
+### Delete a todo
+GET http://127.0.0.1:5000/delete/{{todo_id}}
